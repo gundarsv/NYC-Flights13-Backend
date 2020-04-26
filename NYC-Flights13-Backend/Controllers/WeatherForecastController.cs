@@ -13,7 +13,7 @@ namespace NYC_Flights13_Backend.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
-            "Freezing", "Cold"
+            "Freezing"
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
