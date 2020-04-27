@@ -1,0 +1,24 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcAirlines";
+
+import "google/protobuf/empty.proto";
+
+package nycflights;
+
+service Airlines {
+	rpc GetAirlines (google.protobuf.Empty) returns (AirlineResponse);
+}
+
+message Empty {
+
+}
+
+message AirlineResponse {
+	repeated Airline airlines = 1;
+}
+
+message Airline {
+	string carrier = 1;
+	string name = 2;
+}
