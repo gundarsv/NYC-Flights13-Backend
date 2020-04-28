@@ -1,0 +1,15 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcFlights";
+
+import "google/protobuf/empty.proto";
+
+package nycflights;
+
+service Flights {
+	rpc GetFlights (google.protobuf.Empty) returns (stream Flight);
+}
+
+message Flight {
+	int64 year = 1;
+}
