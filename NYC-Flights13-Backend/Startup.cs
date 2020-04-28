@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NYC_Flights13_Backend.GrpcServices;
+using NYC_Flights13_Backend.GrpcServices.Interfaces;
 
 namespace NYC_Flights13_Backend
 {
@@ -27,6 +28,8 @@ namespace NYC_Flights13_Backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IGrpcAirlinesController, GrpcAirlinesController>();
+            services.AddSingleton<IGrpcController, GrpcController>();
+
             services.AddControllers();
         }
 
