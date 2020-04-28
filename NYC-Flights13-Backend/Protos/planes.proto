@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcPlanes";
+
+import "google/protobuf/empty.proto";
+
+package nycflights;
+
+service Planes {
+	rpc GetPlanes (google.protobuf.Empty) returns (PlaneResponse);
+}
+
+message PlaneResponse {
+	repeated Plane planes = 1;
+}
+
+message Plane {
+    string tailnum = 1;
+    int32 year = 2;
+    string type = 3;
+    string manufacturer = 4;
+    string model = 5;
+    int32 engines = 6;
+    int32 seats = 7;
+    int32 speed = 8;
+    string engine = 9;
+
+}

@@ -29,6 +29,7 @@ namespace NYC_Flights13_Backend
         {
             services.AddSingleton<IGrpcAirlinesController, GrpcAirlinesController>();
             services.AddSingleton<IGrpcController, GrpcController>();
+            services.AddSingleton<IGrpcPlanesController, GrpcPlanesController>();
 
             services.AddControllers();
         }

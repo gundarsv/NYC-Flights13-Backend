@@ -4,6 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 using Grpc.Net.Client;
 using GrpcAirlines;
 using NYC_Flights13_Backend.GrpcServices.Interfaces;
+using GrpcPlanes;
 
 namespace NYC_Flights13_Backend.GrpcServices
 {
@@ -12,6 +13,8 @@ namespace NYC_Flights13_Backend.GrpcServices
         public GrpcChannel GrpcChannel { get; private set; }
 
         public Airlines.AirlinesClient AirlinesClient { get; private set; }
+
+        public Planes.PlanesClient PlanesClient { get; private set; }
 
         public GrpcController()
         {
@@ -34,11 +37,19 @@ namespace NYC_Flights13_Backend.GrpcServices
             GrpcChannel = GrpcChannel.ForAddress("https://localhost:6001", new GrpcChannelOptions { HttpClient = httpClient });
 
             AirlinesClient = new Airlines.AirlinesClient(GrpcChannel);
+
+            PlanesClient = new Planes.PlanesClient(GrpcChannel);
+
         }
 
         public Airlines.AirlinesClient GetAirlinesClient()
         {
             return AirlinesClient;
+        }
+
+        public Planes.PlanesClient GetPlanesClient()
+        {
+            return PlanesClient;
         }
     }
 }
