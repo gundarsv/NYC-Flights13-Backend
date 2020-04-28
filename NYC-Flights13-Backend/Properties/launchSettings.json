@@ -20,6 +20,9 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
+        "GRPC_SERVER_HOST": "localhost",
+        "GRPC_SERVER_PORT": "6001",
+        "GRPC_PROTOCOL":  "https",
         "CERTIFICATE_PATH": "SSL\\local-server.crt",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NYC_Flights13_Backend.GrpcServices;
+using NYC_Flights13_Backend.GrpcServices.Interfaces;
 using NYC_Flights13_Backend.Models;
 
 namespace NYC_Flights13_Backend.Controllers
@@ -15,7 +16,6 @@ namespace NYC_Flights13_Backend.Controllers
     {
         private readonly ILogger<AirlinesController> _logger;
         private readonly IGrpcAirlinesController _grpcAirlinesController;
-
 
         public AirlinesController(ILogger<AirlinesController> logger, IGrpcAirlinesController grpcAirlinesController)
         {
