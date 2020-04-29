@@ -12,21 +12,21 @@ namespace NYC_Flights13_Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PlanesController : ControllerBase
+    public class WeatherController : ControllerBase
     {
-        private readonly ILogger<PlanesController> _logger;
-        private readonly IGrpcPlanesController _grpcPlanesController;
+        private readonly ILogger<WeatherController> _logger;
+        private readonly IGrpcWeatherController _grpcWeatherController;
 
-        public PlanesController(ILogger<PlanesController> logger, IGrpcPlanesController grpcPlanesController)
+        public WeatherController(ILogger<WeatherController> logger, IGrpcWeatherController grpcWeatherController)
         {
             _logger = logger;
-            _grpcPlanesController = grpcPlanesController;
+            _grpcWeatherController = grpcWeatherController;
         }
 
         [HttpGet, Route("")]
-        public IActionResult GetAllPlanes()
+        public IActionResult GetAllWeather()
         {
-            var result = _grpcPlanesController.GetPlanes();
+            var result = _grpcWeatherController.GetWeather();
 
             return Ok(result);
         }

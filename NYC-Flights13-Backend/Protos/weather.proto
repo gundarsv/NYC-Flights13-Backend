@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcWeather";
+
+import "google/protobuf/empty.proto";
+
+package nycflights;
+
+service Weathers {
+	rpc GetWeather (google.protobuf.Empty) returns (WeatherResponse);
+}
+
+message WeatherResponse {
+	repeated Weather weather = 1;
+}
+
+message Weather {
+    string origin = 1;
+    int32 year = 2;
+    int32 month = 3;
+    int32 day = 4;
+    int32 hour =5;
+    float temp = 6;
+    float dewp = 7;
+    float humid = 8;
+    int32 wind_dir = 9;
+    float wind_speed = 10;
+    float wind_gust = 11;
+    float precip = 12;
+    float pressure = 13;
+    int32 visib = 14;
+    string time_hour = 15;
+}

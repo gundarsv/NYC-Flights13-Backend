@@ -30,10 +30,11 @@ namespace NYC_Flights13_Backend
             services.AddSingleton<IGrpcAirlinesController, GrpcAirlinesController>();
             services.AddSingleton<IGrpcController, GrpcController>();
             services.AddSingleton<IGrpcPlanesController, GrpcPlanesController>();
+            services.AddSingleton<IGrpcWeatherController, GrpcWeatherController>();
 
             services.AddControllers();
         }
-
+        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

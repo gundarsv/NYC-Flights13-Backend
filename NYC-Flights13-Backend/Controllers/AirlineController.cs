@@ -31,5 +31,4 @@ namespace NYC_Flights13_Backend.Controllers
             return Ok(result);
         }
     }
-
 }
