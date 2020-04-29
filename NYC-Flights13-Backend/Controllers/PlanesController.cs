@@ -12,21 +12,21 @@ namespace NYC_Flights13_Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AirlinesController : ControllerBase
+    public class PlanesController : ControllerBase
     {
-        private readonly ILogger<AirlinesController> _logger;
-        private readonly IGrpcAirlinesController _grpcAirlinesController;
+        private readonly ILogger<PlanesController> _logger;
+        private readonly IGrpcPlanesController _grpcPlanesController;
 
-        public AirlinesController(ILogger<AirlinesController> logger, IGrpcAirlinesController grpcAirlinesController)
+        public PlanesController(ILogger<PlanesController> logger, IGrpcPlanesController grpcPlanesController)
         {
             _logger = logger;
-            _grpcAirlinesController = grpcAirlinesController;
+            _grpcPlanesController = grpcPlanesController;
         }
 
         [HttpGet, Route("")]
-        public IActionResult GetAllAirlines()
+        public IActionResult GetAllPlanes()
         {
-            var result = _grpcAirlinesController.GetAirlines();
+            var result = _grpcPlanesController.GetPlanes();
 
             return Ok(result);
         }

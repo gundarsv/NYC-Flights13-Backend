@@ -10,10 +10,6 @@ service Airlines {
 	rpc GetAirlines (google.protobuf.Empty) returns (AirlineResponse);
 }
 
-message Empty {
-
-}
-
 message AirlineResponse {
 	repeated Airline airlines = 1;
 }
