@@ -36,7 +36,6 @@ namespace NYC_Flights13_Backend.Models
             Seats = seats;
             Speed = speed;
             Engine = engine;
-
         }
     }
 }

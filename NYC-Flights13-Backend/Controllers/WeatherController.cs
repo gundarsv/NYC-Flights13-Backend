@@ -14,7 +14,7 @@ namespace NYC_Flights13_Backend.Controllers
     [Route("[controller]")]
     public class WeatherController : ControllerBase
     {
-        private readonly ILogger<Weatherontroller> _logger;
+        private readonly ILogger<WeatherController> _logger;
         private readonly IGrpcWeatherController _grpcWeatherController;
 
         public WeatherController(ILogger<WeatherController> logger, IGrpcWeatherController grpcWeatherController)

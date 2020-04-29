@@ -24,5 +24,4 @@ message Plane {
     int32 seats = 7;
     int32 speed = 8;
     string engine = 9;
-
 }

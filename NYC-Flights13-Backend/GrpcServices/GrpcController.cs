@@ -17,7 +17,7 @@ namespace NYC_Flights13_Backend.GrpcServices
 
         public Planes.PlanesClient PlanesClient { get; private set; }
 
-        public Weather.WeatherClient WeatherClient { get; private set; }
+        public Weathers.WeathersClient WeathersClient { get; private set; }
 
         public GrpcController()
         {
@@ -43,8 +43,7 @@ namespace NYC_Flights13_Backend.GrpcServices
 
             PlanesClient = new Planes.PlanesClient(GrpcChannel);
 
-            WeatherClient = new Weather.WeatherClient(GrpcChannel);
-
+            WeathersClient = new Weathers.WeathersClient(GrpcChannel);
         }
 
         public Airlines.AirlinesClient GetAirlinesClient()
@@ -57,9 +56,9 @@ namespace NYC_Flights13_Backend.GrpcServices
             return PlanesClient;
         }
 
-        public Weather.WeatherClient GetWeatherClient()
-            {
-            return WeatherClient();
-          }
+        public Weathers.WeathersClient GetWeathersClient()
+        {
+            return WeathersClient;
+        }
     }
 }

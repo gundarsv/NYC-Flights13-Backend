@@ -6,7 +6,7 @@ import "google/protobuf/empty.proto";
 
 package nycflights;
 
-service Weather {
+service Weathers {
 	rpc GetWeather (google.protobuf.Empty) returns (WeatherResponse);
 }
 
@@ -30,7 +30,4 @@ message Weather {
     float pressure = 13;
     int32 visib = 14;
     string time_hour = 15;
-
-
-
 }

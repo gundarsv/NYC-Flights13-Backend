@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using Airline = NYC_Flights13_Backend.Models.Airline;
-using Plane = NYC_Flights13_Backend.Models.Plane;
+﻿using Plane = NYC_Flights13_Backend.Models.Plane;
 using Empty = Google.Protobuf.WellKnownTypes.Empty;
 using NYC_Flights13_Backend.GrpcServices.Interfaces;
+using System.Collections.Generic;
 
 namespace NYC_Flights13_Backend.GrpcServices
 {

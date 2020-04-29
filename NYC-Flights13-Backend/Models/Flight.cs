@@ -35,7 +35,6 @@ namespace NYC_Flights13_Backend.Models
 
         public int Minute { get; private set; }
 
-
         public Flight(int id, int year, int month, int day, int departureTime, int departureDelay, int arrivalTime,
             int arrivalDelay, string carrier, string tailNumber, string origin, string destination, int airTime,
             int distance, int hour, int minute)

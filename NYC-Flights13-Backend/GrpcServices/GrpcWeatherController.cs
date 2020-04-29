@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using Airline = NYC_Flights13_Backend.Models.Airline;
-using Plane = NYC_Flights13_Backend.Models.Plane;
-using Weather = NYC_Flights13_Backend.Models.Weather;
+﻿using Weather = NYC_Flights13_Backend.Models.Weather;
 using Empty = Google.Protobuf.WellKnownTypes.Empty;
 using NYC_Flights13_Backend.GrpcServices.Interfaces;
+using System.Collections.Generic;
 
 namespace NYC_Flights13_Backend.GrpcServices
 {
@@ -18,18 +16,18 @@ namespace NYC_Flights13_Backend.GrpcServices
 
         public IEnumerable<Weather> GetWeather()
         {
-            var weather = new List<Weather>();
+            var weathers = new List<Weather>();
 
-            var client = _grpcController.GetWeatherClient();
+            var client = _grpcController.GetWeathersClient();
 
             var response = client.GetWeather(new Empty());
 
             foreach (var weather in response.Weather)
             {
-                Weather.Add(new Weather(weather.Origin, weather.Year, weather.Month, weather.Day, weather.Hour, weather.Temp, weather.Dewp, weather.Humid, weather.Wind_dir, weather.Wind_speed, weather.Wind_gust, weather.Precip, weather.Pressure, weather.Visib, weather.Time_hour ));
+                weathers.Add(new Weather(weather.Origin, weather.Year, weather.Month, weather.Day, weather.Hour, weather.Temp, weather.Dewp, weather.Humid, weather.WindDir, weather.WindSpeed, weather.WindGust, weather.Precip, weather.Pressure, weather.Visib, weather.TimeHour ));
             }
 
-            return weather;
+            return weathers;
         }
     }
 }
