@@ -6,11 +6,20 @@ using GrpcAirlines;
 using NYC_Flights13_Backend.GrpcServices.Interfaces;
 using GrpcPlanes;
 using GrpcWeather;
+using GrpcFlights;
 
 namespace NYC_Flights13_Backend.GrpcServices
 {
     public class GrpcController : IGrpcController
     {
+        private readonly string GRPC_SERVER_PROTOCOL = Environment.GetEnvironmentVariable("GRPC_SERVER_PROTOCOL");
+
+        private readonly string GRPC_SERVER_PORT = Environment.GetEnvironmentVariable("GRPC_SERVER_PORT");
+
+        private readonly string GRPC_SERVER_HOST = Environment.GetEnvironmentVariable("GRPC_SERVER_HOST");
+
+        private readonly string CERTIFICATE_PATH = Environment.GetEnvironmentVariable("CERTIFICATE_PATH");
+
         public GrpcChannel GrpcChannel { get; private set; }
 
         public Airlines.AirlinesClient AirlinesClient { get; private set; }
@@ -19,31 +28,27 @@ namespace NYC_Flights13_Backend.GrpcServices
 
         public Weathers.WeathersClient WeathersClient { get; private set; }
 
+        public Flights.FlightsClient FlightsClient { get; private set; }
+
         public GrpcController()
         {
-            var certLocation = Environment.GetEnvironmentVariable("CERTIFICATE_PATH");
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
-            if (certLocation == null)
+            
+
+            GrpcChannel = GrpcChannel.ForAddress($"{GRPC_SERVER_PROTOCOL}://{GRPC_SERVER_HOST}:{GRPC_SERVER_PORT}", new GrpcChannelOptions
             {
-                throw new Exception("Provide CERTIFICATE_PATH");
-            }
-
-            var certificate = new X509Certificate2(certLocation);
-
-            var httpClientHandler = new HttpClientHandler
-            {
-                ServerCertificateCustomValidationCallback = (request, cert, chain, errors) => certificate.Equals(cert)
-            };
-
-            var httpClient = new HttpClient(httpClientHandler);
-
-            GrpcChannel = GrpcChannel.ForAddress("https://localhost:6001", new GrpcChannelOptions { HttpClient = httpClient });
+                MaxReceiveMessageSize = 25 * 1024 * 1024, // 25 MB
+                MaxSendMessageSize = 25 * 1024 * 1024 // 25 MB
+            });
 
             AirlinesClient = new Airlines.AirlinesClient(GrpcChannel);
 
             PlanesClient = new Planes.PlanesClient(GrpcChannel);
 
             WeathersClient = new Weathers.WeathersClient(GrpcChannel);
+
+            FlightsClient = new Flights.FlightsClient(GrpcChannel);
         }
 
         public Airlines.AirlinesClient GetAirlinesClient()
@@ -59,6 +64,11 @@ namespace NYC_Flights13_Backend.GrpcServices
         public Weathers.WeathersClient GetWeathersClient()
         {
             return WeathersClient;
+        }
+
+        public Flights.FlightsClient GetFlightsClient()
+        {
+            return FlightsClient;
         }
     }
 }
