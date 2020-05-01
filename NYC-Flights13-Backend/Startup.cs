@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using NYC_Flights13_Backend.GrpcServices;
 using NYC_Flights13_Backend.GrpcServices.Interfaces;
 
@@ -27,12 +28,18 @@ namespace NYC_Flights13_Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IGrpcAirlinesController, GrpcAirlinesController>();
             services.AddSingleton<IGrpcController, GrpcController>();
+            services.AddSingleton<IGrpcAirlinesController, GrpcAirlinesController>();
             services.AddSingleton<IGrpcPlanesController, GrpcPlanesController>();
             services.AddSingleton<IGrpcWeatherController, GrpcWeatherController>();
+            services.AddSingleton<IGrpcFlightsController, GrpcFlightsController>();
 
             services.AddControllers();
+
+            services.AddSwaggerGen(configuration =>
+            {
+                configuration.SwaggerDoc("v1", new OpenApiInfo { Title = "NYC Flights 13 API", Version="v1" });
+            });
         }
         
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +49,14 @@ namespace NYC_Flights13_Backend
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(configuration =>
+            {
+                configuration.SwaggerEndpoint("/swagger/v1/swagger.json", "NYC Flights API v1");
+                configuration.RoutePrefix = string.Empty;
+            });
 
             app.UseHttpsRedirection();
 

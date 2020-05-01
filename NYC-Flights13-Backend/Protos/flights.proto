@@ -7,9 +7,37 @@ import "google/protobuf/empty.proto";
 package nycflights;
 
 service Flights {
-	rpc GetFlights (google.protobuf.Empty) returns (stream Flight);
+	rpc GetFlights (google.protobuf.Empty) returns (FlightResponse);
+	rpc GetNumberOfFlightsPerMonth (MonthNumber) returns (FlightsCount);
+}
+
+message FlightResponse {
+	repeated Flight flight = 1;
 }
 
 message Flight {
-	int64 year = 1;
+    string origin = 1;
+    string dest = 2;
+    string carrier = 3;
+    string tailnum = 4;
+    int32 flight =5;
+    int32 year = 6;
+    int32 month = 7;
+    int32 day = 8;
+    int32 dep_time = 9;
+    int32 dep_delay = 10;
+    int32 arr_time = 11;
+    int32 arr_delay = 12;
+    int32 air_time = 13;
+    int32 distance = 14;
+    int32 hour = 15;
+    int32 minute = 16;
+}
+
+message MonthNumber {
+    int32 number = 1;
+}
+
+message FlightsCount {
+    int32 count = 1;
 }

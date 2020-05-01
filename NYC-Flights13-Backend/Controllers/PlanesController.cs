@@ -11,7 +11,7 @@ using NYC_Flights13_Backend.Models;
 namespace NYC_Flights13_Backend.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class PlanesController : ControllerBase
     {
         private readonly ILogger<PlanesController> _logger;
