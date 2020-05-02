@@ -20,9 +20,9 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "GRPC_SERVER_HOST": "localhost",
-        "GRPC_SERVER_PORT": "8080",
-        "GRPC_SERVER_PROTOCOL":  "http",
+        "GRPC_SERVER_HOST": "nycflights-data-grpc-test.northeurope.azurecontainer.io",
+        "GRPC_SERVER_PORT": "80",
+        "GRPC_SERVER_PROTOCOL": "http",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"

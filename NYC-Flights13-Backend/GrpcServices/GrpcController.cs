@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
 using Grpc.Net.Client;
 using GrpcAirlines;
 using NYC_Flights13_Backend.GrpcServices.Interfaces;
@@ -18,8 +16,6 @@ namespace NYC_Flights13_Backend.GrpcServices
 
         private readonly string GRPC_SERVER_HOST = Environment.GetEnvironmentVariable("GRPC_SERVER_HOST");
 
-        private readonly string CERTIFICATE_PATH = Environment.GetEnvironmentVariable("CERTIFICATE_PATH");
-
         public GrpcChannel GrpcChannel { get; private set; }
 
         public Airlines.AirlinesClient AirlinesClient { get; private set; }
@@ -34,12 +30,10 @@ namespace NYC_Flights13_Backend.GrpcServices
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
-            
-
             GrpcChannel = GrpcChannel.ForAddress($"{GRPC_SERVER_PROTOCOL}://{GRPC_SERVER_HOST}:{GRPC_SERVER_PORT}", new GrpcChannelOptions
             {
-                MaxReceiveMessageSize = 25 * 1024 * 1024, // 25 MB
-                MaxSendMessageSize = 25 * 1024 * 1024 // 25 MB
+                MaxReceiveMessageSize = 25 * 1024 * 1024, // ~26 MB
+                MaxSendMessageSize = 25 * 1024 * 1024 // ~26 MB
             });
 
             AirlinesClient = new Airlines.AirlinesClient(GrpcChannel);
