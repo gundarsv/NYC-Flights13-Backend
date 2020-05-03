@@ -34,6 +34,15 @@ namespace NYC_Flights13_Backend
             services.AddSingleton<IGrpcWeatherController, GrpcWeatherController>();
             services.AddSingleton<IGrpcFlightsController, GrpcFlightsController>();
 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    });
+            });
+
             services.AddControllers();
 
             services.AddSwaggerGen(configuration =>
@@ -58,11 +67,9 @@ namespace NYC_Flights13_Backend
                 configuration.RoutePrefix = string.Empty;
             });
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
