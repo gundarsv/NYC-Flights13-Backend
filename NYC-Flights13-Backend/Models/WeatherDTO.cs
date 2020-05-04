@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NYC_Flights13_Backend.Models
 {
-    public class Weather
+    public class WeatherDTO
     {
         public string Origin { get; private set; }
 
@@ -37,7 +37,11 @@ namespace NYC_Flights13_Backend.Models
 
         public string TimeHour { get; private set; }
 
-        public Weather(string origin, int year, int month, int day, int hour, float temp, float dewp, float humid, int wind_dir, float wind_speed, float wind_gust, float precip, float pressure, int visib, string time_hour )
+        public WeatherDTO()
+        {
+        }
+
+        public WeatherDTO(string origin, int year, int month, int day, int hour, float temp, float dewp, float humid, int wind_dir, float wind_speed, float wind_gust, float precip, float pressure, int visib, string time_hour )
         {
             Origin = origin;
             Year = year;

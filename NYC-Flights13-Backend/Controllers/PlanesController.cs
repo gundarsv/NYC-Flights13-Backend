@@ -30,5 +30,13 @@ namespace NYC_Flights13_Backend.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet, Route("manufacturersWithMoreThan200Planes")]
+        public IActionResult GetManufacturersWithMoreThan200Planes()
+        {
+            var result = _grpcPlanesController.GetManufacturesWithMoreThan200Planes();
+
+            return Ok(result);
+        }
     }
 }

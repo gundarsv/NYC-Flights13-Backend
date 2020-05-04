@@ -31,19 +31,22 @@ namespace NYC_Flights13_Backend.Controllers
             return Ok(result);
         }
 
-        [HttpGet, Route("numberOfFlightsPerMonth")]
-        public IActionResult GetNumberOfFlightsPerMonthAsync()
+        [HttpGet, Route("numberOfFlightsPerMonth/{month}")]
+        public IActionResult GetNumberOfFlightsPerMonth(int month)
         {
-            int[] months = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
-            var numberOfFlightsPerMonths = new List<FlightsPerMonth>();
+           var result = _grpcFlightsController.GetNumberOfFlights(month);
 
-            foreach (var month in months)
-            {
-                var numberOfFlightsRequest = _grpcFlightsController.GetNumberOfFlightsAsync(month).Result;
-                numberOfFlightsPerMonths.Add(new FlightsPerMonth { Flights = numberOfFlightsRequest, Month = month });
-            }
+            return Ok(result);
+        }
 
-            return Ok(numberOfFlightsPerMonths);
+        [HttpGet, Route("numberOfFlightsPerMonths")]
+        public IActionResult GetNumberOfFlightsInMonths()
+        {
+            var months = new List<int> { 1, 2, 3, 4, 5 , 6, 7, 8, 9, 10, 11, 12};
+
+            var result = _grpcFlightsController.GetNumberOfFlightsInMonths(months);
+
+            return Ok(result);
         }
     }
 }

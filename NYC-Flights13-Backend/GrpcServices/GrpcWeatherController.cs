@@ -1,7 +1,9 @@
-﻿using Weather = NYC_Flights13_Backend.Models.Weather;
+﻿using WeatherDTO = NYC_Flights13_Backend.Models.WeatherDTO;
 using Empty = Google.Protobuf.WellKnownTypes.Empty;
 using NYC_Flights13_Backend.GrpcServices.Interfaces;
 using System.Collections.Generic;
+using AutoMapper;
+using GrpcWeather;
 
 namespace NYC_Flights13_Backend.GrpcServices
 {
@@ -9,23 +11,22 @@ namespace NYC_Flights13_Backend.GrpcServices
     {
         private readonly IGrpcController _grpcController;
 
-        public GrpcWeatherController(IGrpcController grpcController)
+        private readonly Weathers.WeathersClient weathersClient;
+
+        private readonly IMapper _mapper;
+
+        public GrpcWeatherController(IGrpcController grpcController, IMapper mapper)
         {
+            _mapper = mapper;
             _grpcController = grpcController;
+            weathersClient = grpcController.GetWeathersClient();
         }
 
-        public IEnumerable<Weather> GetWeather()
+        public IEnumerable<WeatherDTO> GetWeather()
         {
-            var weathers = new List<Weather>();
+            var response = weathersClient.GetWeather(new Empty());
 
-            var client = _grpcController.GetWeathersClient();
-
-            var response = client.GetWeather(new Empty());
-
-            foreach (var weather in response.Weather)
-            {
-                weathers.Add(new Weather(weather.Origin, weather.Year, weather.Month, weather.Day, weather.Hour, weather.Temp, weather.Dewp, weather.Humid, weather.WindDir, weather.WindSpeed, weather.WindGust, weather.Precip, weather.Pressure, weather.Visib, weather.TimeHour ));
-            }
+            var weathers = _mapper.Map<List<WeatherDTO>>(response.Weather);
 
             return weathers;
         }

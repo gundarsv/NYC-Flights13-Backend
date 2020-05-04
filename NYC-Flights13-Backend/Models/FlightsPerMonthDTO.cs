@@ -5,10 +5,14 @@ using System.Threading.Tasks;
 
 namespace NYC_Flights13_Backend.Models
 {
-    public class FlightsPerMonth
+    public class FlightsPerMonthDTO
     {
         public int Month { get; set; }
 
         public int Flights { get; set; }
+
+        public FlightsPerMonthDTO()
+        {
+        }
     }
 }

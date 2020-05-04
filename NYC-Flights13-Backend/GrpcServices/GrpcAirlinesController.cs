@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
-using Airline = NYC_Flights13_Backend.Models.Airline;
+using AirlineDTO = NYC_Flights13_Backend.Models.AirlineDTO;
 using Empty = Google.Protobuf.WellKnownTypes.Empty;
 using NYC_Flights13_Backend.GrpcServices.Interfaces;
+using AutoMapper;
+using GrpcAirlines;
 
 namespace NYC_Flights13_Backend.GrpcServices
 {
@@ -9,23 +11,22 @@ namespace NYC_Flights13_Backend.GrpcServices
     {
         private readonly IGrpcController _grpcController;
 
-        public GrpcAirlinesController(IGrpcController grpcController)
+        private readonly IMapper _mapper;
+
+        private readonly Airlines.AirlinesClient airlinesClient;
+
+        public GrpcAirlinesController(IGrpcController grpcController, IMapper mapper)
         {
+            _mapper = mapper;
             _grpcController = grpcController;
+            airlinesClient = grpcController.GetAirlinesClient();
         }
 
-        public IEnumerable<Airline> GetAirlines()
+        public IEnumerable<AirlineDTO> GetAirlines()
         {
-            var airlines = new List<Airline>();
+            var response = airlinesClient.GetAirlines(new Empty());
 
-            var client = _grpcController.GetAirlinesClient();
-            
-            var response = client.GetAirlines(new Empty());
-
-            foreach (var airline in response.Airlines)
-            {
-                airlines.Add(new Airline(airline.Carrier, airline.Name));
-            }
+            var airlines = _mapper.Map<List<AirlineDTO>>(response.Airlines);
 
             return airlines;
         }

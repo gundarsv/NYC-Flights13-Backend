@@ -8,6 +8,7 @@ package nycflights;
 
 service Planes {
 	rpc GetPlanes (google.protobuf.Empty) returns (PlaneResponse);
+	rpc GetManufacturersWithMoreThan200Planes (google.protobuf.Empty) returns (ManufacturersResponse);
 }
 
 message PlaneResponse {
@@ -25,3 +26,13 @@ message Plane {
     int32 speed = 8;
     string engine = 9;
 }
+
+message ManufacturersResponse {
+    repeated Manufacturer manufacturers = 1;
+}
+
+message Manufacturer {
+    int32 planes = 1;
+    string manufacturer = 2;
+}
+

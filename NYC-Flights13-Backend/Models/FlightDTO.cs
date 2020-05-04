@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NYC_Flights13_Backend.Models
 {
-    public class Flight
+    public class FlightDTO
     {
         public string Origin { get; private set; }
 
@@ -35,7 +32,11 @@ namespace NYC_Flights13_Backend.Models
 
         public int Minute { get; private set; }
 
-        public Flight(string origin, string destination, string carrier, string tailNumber, int flightNumber, int year, int month, int day, int departureTime,
+        public FlightDTO()
+        {
+        }
+
+        public FlightDTO(string origin, string destination, string carrier, string tailNumber, int flightNumber, int year, int month, int day, int departureTime,
             int departureDelay, int arrivalTime, int arrivalDelay, int airTime, int distance,
             int hour, int minute)
         {
@@ -44,7 +45,7 @@ namespace NYC_Flights13_Backend.Models
             Carrier = carrier;
             TailNumber = tailNumber;
             FlightNumber = flightNumber;
-            Date = new DateTime(year,month,day);
+            Date = new DateTime(year, month, day);
             DepartureTime = departureTime;
             DepartureDelay = departureDelay;
             ArrivalTime = arrivalTime;
@@ -54,7 +55,5 @@ namespace NYC_Flights13_Backend.Models
             Hour = hour;
             Minute = minute;
         }
-
     }
-
 }

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using GrpcFlights;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +15,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NYC_Flights13_Backend.GrpcServices;
 using NYC_Flights13_Backend.GrpcServices.Interfaces;
+using NYC_Flights13_Backend.Mappings;
+using NYC_Flights13_Backend.Models;
 
 namespace NYC_Flights13_Backend
 {
@@ -43,6 +47,8 @@ namespace NYC_Flights13_Backend
                     });
             });
 
+            services.AddAutoMapper(typeof(Startup).Assembly);
+
             services.AddControllers();
 
             services.AddSwaggerGen(configuration =>
@@ -66,6 +72,8 @@ namespace NYC_Flights13_Backend
                 configuration.SwaggerEndpoint("/swagger/v1/swagger.json", "NYC Flights API v1");
                 configuration.RoutePrefix = string.Empty;
             });
+
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
