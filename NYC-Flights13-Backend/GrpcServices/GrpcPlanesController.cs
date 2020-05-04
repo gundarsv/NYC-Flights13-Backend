@@ -1,7 +1,10 @@
-﻿using Plane = NYC_Flights13_Backend.Models.Plane;
+﻿using PlaneDTO = NYC_Flights13_Backend.Models.PlaneDTO;
 using Empty = Google.Protobuf.WellKnownTypes.Empty;
 using NYC_Flights13_Backend.GrpcServices.Interfaces;
 using System.Collections.Generic;
+using AutoMapper;
+using GrpcPlanes;
+using NYC_Flights13_Backend.Models;
 
 namespace NYC_Flights13_Backend.GrpcServices
 {
@@ -9,25 +12,33 @@ namespace NYC_Flights13_Backend.GrpcServices
     {
         private readonly IGrpcController _grpcController;
 
-        public GrpcPlanesController(IGrpcController grpcController)
+        private readonly IMapper _mapper;
+
+        private readonly Planes.PlanesClient planesClient;
+
+        public GrpcPlanesController(IGrpcController grpcController, IMapper mapper)
         {
+            _mapper = mapper;
             _grpcController = grpcController;
+            planesClient = grpcController.GetPlanesClient();
         }
 
-        public IEnumerable<Plane> GetPlanes()
+        public IEnumerable<PlaneDTO> GetPlanes()
         {
-            var planes = new List<Plane>();
+            var response = planesClient.GetPlanes(new Empty());
 
-            var client = _grpcController.GetPlanesClient();
-
-            var response = client.GetPlanes(new Empty());
-
-            foreach (var plane in response.Planes)
-            {
-                planes.Add(new Plane(plane.Tailnum, plane.Year, plane.Type, plane.Manufacturer, plane.Model, plane.Engines, plane.Seats, plane.Speed, plane.Engine));
-            }
+            var planes = _mapper.Map<List<PlaneDTO>>(response.Planes);
 
             return planes;
+        }
+
+        public IEnumerable<ManufacturerDTO> GetManufacturesWithMoreThan200Planes()
+        {
+            var response = planesClient.GetManufacturersWithMoreThan200Planes(new Empty());
+
+            var manufacturersWithMoreThan200Planes = _mapper.Map<List<ManufacturerDTO>>(response.Manufacturers);
+
+            return manufacturersWithMoreThan200Planes;
         }
     }
 }

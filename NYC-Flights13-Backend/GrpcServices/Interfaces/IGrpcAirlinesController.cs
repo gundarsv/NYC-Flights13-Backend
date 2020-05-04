@@ -5,6 +5,6 @@ namespace NYC_Flights13_Backend.GrpcServices.Interfaces
 {
     public interface IGrpcAirlinesController
     {
-        public IEnumerable<Airline> GetAirlines();
+        public IEnumerable<AirlineDTO> GetAirlines();
     }
 }

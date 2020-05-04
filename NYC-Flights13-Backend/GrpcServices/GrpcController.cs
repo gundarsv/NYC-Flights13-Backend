@@ -16,7 +16,7 @@ namespace NYC_Flights13_Backend.GrpcServices
 
         private readonly string GRPC_SERVER_HOST = Environment.GetEnvironmentVariable("GRPC_SERVER_HOST");
 
-        public GrpcChannel GrpcChannel { get; private set; }
+        private GrpcChannel GrpcChannel { get; set; }
 
         public Airlines.AirlinesClient AirlinesClient { get; private set; }
 

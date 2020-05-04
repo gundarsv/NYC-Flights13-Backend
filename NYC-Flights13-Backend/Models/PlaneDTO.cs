@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NYC_Flights13_Backend.Models
 {
-    public class Plane
+    public class PlaneDTO
     {
         public string TailNumber { get; private set; }
 
@@ -25,7 +25,11 @@ namespace NYC_Flights13_Backend.Models
 
         public string Engine { get; private set; }
 
-        public Plane(string tailnumber, int year, string type, string manufacturer, string model, int engines, int seats, int speed, string engine )
+        public PlaneDTO()
+        {
+        }
+
+        public PlaneDTO(string tailnumber, int year, string type, string manufacturer, string model, int engines, int seats, int speed, string engine )
         {
             TailNumber = tailnumber;
             Year = year;
