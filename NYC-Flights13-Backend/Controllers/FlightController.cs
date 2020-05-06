@@ -48,5 +48,13 @@ namespace NYC_Flights13_Backend.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet, Route("top10Destinations/{origin}")]
+        public IActionResult GetTop10DestinationsForOrigin(string origin)
+        {
+            var result = _grpcFlightsController.GetTop10DestinationsForOrigin(origin);
+
+            return Ok(result);
+        }
     }
 }

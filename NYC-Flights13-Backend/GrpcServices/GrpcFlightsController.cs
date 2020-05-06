@@ -57,5 +57,14 @@ namespace NYC_Flights13_Backend.GrpcServices
 
             return flightsPerMonth;
         }
+
+        public IEnumerable<DestinationsForOriginDTO> GetTop10DestinationsForOrigin(string origin)
+        {
+            var response = flightsClient.GetTop10DestinationsForOrigin(new DestinationRequest { Origin = origin });
+
+            var top10Destinations = _mapper.Map<List<DestinationsForOriginDTO>>(response.FlightsPerDestination);
+
+            return top10Destinations;
+        }
     }
 }
