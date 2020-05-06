@@ -6,5 +6,7 @@ namespace NYC_Flights13_Backend.GrpcServices.Interfaces
     public interface IGrpcWeatherController
     {
         public IEnumerable<WeatherDTO> GetWeather();
+
+        public IEnumerable<TemperatureAtOriginDTO> GetTemperatureAtOrigin(string origin);
     }
 }

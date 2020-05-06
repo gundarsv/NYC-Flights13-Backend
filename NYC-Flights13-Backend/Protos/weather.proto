@@ -8,6 +8,23 @@ package nycflights;
 
 service Weathers {
 	rpc GetWeather (google.protobuf.Empty) returns (WeatherResponse);
+	rpc GetTemperatureAtOrigin (TemperatureRequest) returns (TemperatureResponse);
+}
+
+message TemperatureRequest {
+    string origin = 1;
+}
+
+message TemperatureAtOrigin {
+    int32 year=1;
+    int32 month=2;
+    int32 day=3;
+    int32 hour=4;
+    float temp=5;
+}
+
+message TemperatureResponse {
+    repeated TemperatureAtOrigin temperatureAtOrigins = 1;
 }
 
 message WeatherResponse {
@@ -28,6 +45,6 @@ message Weather {
     float wind_gust = 11;
     float precip = 12;
     float pressure = 13;
-    int32 visib = 14;
+    float visib = 14;
     string time_hour = 15;
 }
