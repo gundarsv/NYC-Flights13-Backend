@@ -28,6 +28,10 @@ namespace NYC_Flights13_Backend.Mappings
                 .ForMember(x => x.Pressure, opt => opt.MapFrom(y => y.Pressure))
                 .ForMember(x => x.Visiblity, opt => opt.MapFrom(y => y.Visib))
                 .ForMember(x => x.TimeHour, opt => opt.MapFrom(y => y.TimeHour));
+
+            CreateMap<TemperatureAtOrigin, TemperatureAtOriginDTO>()
+                .ForMember(x => x.Temperature, opt => opt.MapFrom(y => y.Temp))
+                .ForMember(x => x.DateTime, opt => opt.MapFrom(y => new DateTime(y.Year, y.Month, y.Day, y.Hour, 0 , 0)));
         }
     }
 }

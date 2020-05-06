@@ -4,6 +4,7 @@ using NYC_Flights13_Backend.GrpcServices.Interfaces;
 using System.Collections.Generic;
 using AutoMapper;
 using GrpcWeather;
+using NYC_Flights13_Backend.Models;
 
 namespace NYC_Flights13_Backend.GrpcServices
 {
@@ -20,6 +21,15 @@ namespace NYC_Flights13_Backend.GrpcServices
             _mapper = mapper;
             _grpcController = grpcController;
             weathersClient = grpcController.GetWeathersClient();
+        }
+
+        public IEnumerable<TemperatureAtOriginDTO> GetTemperatureAtOrigin(string origin)
+        {
+            var response = weathersClient.GetTemperatureAtOrigin(new TemperatureRequest { Origin = origin });
+
+            var temperatureAtOrigins = _mapper.Map<List<TemperatureAtOriginDTO>>(response.TemperatureAtOrigins);
+
+            return temperatureAtOrigins;
         }
 
         public IEnumerable<WeatherDTO> GetWeather()
