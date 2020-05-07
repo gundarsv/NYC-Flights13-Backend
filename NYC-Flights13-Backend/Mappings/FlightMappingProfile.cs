@@ -34,6 +34,11 @@ namespace NYC_Flights13_Backend.Mappings
 
             CreateMap<int, MonthNumber>()
                 .ForMember(x => x.Number, opt => opt.MapFrom(y => y));
+
+            CreateMap<FlightsPerDestination, DestinationsForOriginDTO>()
+                .ForMember(x => x.NumberOfFlights, opt => opt.MapFrom(y => y.NumberOfFlights))
+                .ForMember(x => x.Destination, opt => opt.MapFrom(y => y.Destination))
+                .ForMember(x => x.Origin, opt => opt.MapFrom(y => y.Origin));
         }
     }
 }
