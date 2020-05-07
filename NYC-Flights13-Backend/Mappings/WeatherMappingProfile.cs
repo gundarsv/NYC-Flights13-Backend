@@ -30,7 +30,8 @@ namespace NYC_Flights13_Backend.Mappings
                 .ForMember(x => x.TimeHour, opt => opt.MapFrom(y => y.TimeHour));
 
             CreateMap<TemperatureAtOrigin, TemperatureAtOriginDTO>()
-                .ForMember(x => x.Temperature, opt => opt.MapFrom(y => y.Temp))
+                .ForMember(x => x.TemperatureInFahrenheit, opt => opt.MapFrom(y => y.Temp))
+                .ForMember(x => x.TemperatureInCelsius, opt => opt.MapFrom(y => (y.Temp - 32) * 5/9))
                 .ForMember(x => x.DateTime, opt => opt.MapFrom(y => new DateTime(y.Year, y.Month, y.Day, y.Hour, 0 , 0)));
         }
     }

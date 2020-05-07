@@ -7,7 +7,9 @@ namespace NYC_Flights13_Backend.Models
 {
     public class TemperatureAtOriginDTO
     {
-        public float Temperature { get; set; }
+        public float TemperatureInFahrenheit { get; set; }
+
+        public float TemperatureInCelsius { get; set; }
 
         public DateTime DateTime { get; set; }
 
