@@ -14,5 +14,8 @@ namespace NYC_Flights13_Backend.GrpcServices.Interfaces
         public IEnumerable<FlightsPerMonthDTO> GetNumberOfFlightsInMonths(List<int> monthNumbers);
 
         public IEnumerable<DestinationsForOriginDTO> GetTop10DestinationsForOrigin(string origin);
+
+        public IEnumerable<AirtimeAtOriginDTO> GetAirtimeAtOrigin(string origin);
+
     }
 }
