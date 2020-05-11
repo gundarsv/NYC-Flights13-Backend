@@ -57,5 +57,14 @@ namespace NYC_Flights13_Backend.GrpcServices
 
             return flightsPerMonth;
         }
+
+        public IEnumerable<AirtimeAtOriginDTO> GetAirtimeAtOrigin(string origin)
+        {
+            var response = flightsClient.GetAirtimeAtOrigin(new AirtimeRequest { Origin = origin });
+
+            var airtimeAtOrigin = _mapper.Map<List<AirtimeAtOriginDTO>>(response.AirtimeAtOrigin);
+
+            return airtimeAtOrigin;
+        }
     }
 }

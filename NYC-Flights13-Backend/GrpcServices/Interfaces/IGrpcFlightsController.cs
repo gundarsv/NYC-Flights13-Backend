@@ -12,5 +12,8 @@ namespace NYC_Flights13_Backend.GrpcServices.Interfaces
         public FlightsPerMonthDTO GetNumberOfFlights(int monthNumber);
 
         public IEnumerable<FlightsPerMonthDTO> GetNumberOfFlightsInMonths(List<int> monthNumbers);
+
+        public IEnumerable<AirtimeAtOriginDTO> GetAirtimeAtOrigin(string origin);
+
     }
 }

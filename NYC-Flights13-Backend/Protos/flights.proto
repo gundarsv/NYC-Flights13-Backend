@@ -10,10 +10,38 @@ service Flights {
 	rpc GetFlights (google.protobuf.Empty) returns (FlightResponse);
 	rpc GetNumberOfFlightsPerMonth (MonthNumber) returns (FlightsPerMonth);
 	rpc GetNumberOfFlightsInMonths (AllMonths) returns (FlightsInMonths);
+	rpc GetTop10DestinationsForOrigin (DestinationRequest) returns (DestinationResponse);
+	rpc GetAirtimeAtOrigin (AirtimeRequest) returns (AirtimeResponse);
+}
+
+message DestinationRequest {
+    string origin = 1;
+}
+
+message DestinationResponse {
+    repeated FlightsPerDestination flightsPerDestination = 1;
+}
+
+message FlightsPerDestination {
+    int32 numberOfFlights = 1;
+    string destination = 2;
+    string origin = 3;
 }
 
 message FlightResponse {
 	repeated Flight flight = 1;
+}
+
+message AirtimeRequest {
+    string origin=1;
+}
+
+message AirtimeAtOrigin {
+    int32 air_time=1;
+}
+
+message AirtimeResponse {
+    repeated AirtimeAtOrigin airtimeAtOrigin = 1;
 }
 
 message Flight {
