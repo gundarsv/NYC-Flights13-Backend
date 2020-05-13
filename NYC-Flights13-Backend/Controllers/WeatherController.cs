@@ -38,5 +38,13 @@ namespace NYC_Flights13_Backend.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet, Route("observations")]
+        public IActionResult GetObservationsAtOrigin([FromQuery] string origin)
+        {
+            var result = _grpcWeatherController.GetObservationsAtOrigin(origin);
+
+            return Ok(result);
+        }
     }
 }
