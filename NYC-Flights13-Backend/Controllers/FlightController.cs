@@ -49,8 +49,8 @@ namespace NYC_Flights13_Backend.Controllers
             return Ok(result);
         }
 
-        [HttpGet, Route("airtimeAtOrigin/{origin}")]
-        public IActionResult GetAirtimeAtOrigin(string origin)
+        [HttpGet, Route("airtime/mean")]
+        public IActionResult GetAirtimeAtOrigin([FromQuery] string origin)
         {
             var result = _grpcFlightsController.GetAirtimeAtOrigin(origin);
 
