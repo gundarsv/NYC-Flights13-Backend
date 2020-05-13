@@ -37,6 +37,15 @@ namespace NYC_Flights13_Backend.Mappings
             CreateMap<ObservationsResponse, ObservationsAtOriginDTO>()
                 .ForMember(x => x.Observations, opt => opt.MapFrom(y => y.ObservationsAtOrigin))
                 .ForMember(x => x.Origin, opt => opt.MapFrom(y => y.Origin));
+
+            CreateMap<AllOriginTemperature, TemperatureAtOriginWithOriginDTO>()
+                .ForMember(x => x.TemperatureInFahrenheit, opt => opt.MapFrom(y => y.TemperatureAtOrigin.Temp))
+                .ForMember(x => x.TemperatureInCelsius, opt => opt.MapFrom(y => (y.TemperatureAtOrigin.Temp - 32) * 5 / 9))
+                .ForMember(x => x.DateTime, opt => opt.MapFrom(y => new DateTime(y.TemperatureAtOrigin.Year, y.TemperatureAtOrigin.Month, y.TemperatureAtOrigin.Day, y.TemperatureAtOrigin.Hour, 0, 0)))
+                .ForMember(x => x.Origin, opt => opt.MapFrom(y => y.Origin));
+
+            CreateMap<string, OriginRequest>()
+                .ForMember(x => x.Origin, opt => opt.MapFrom(y => y));
         }
     }
 }

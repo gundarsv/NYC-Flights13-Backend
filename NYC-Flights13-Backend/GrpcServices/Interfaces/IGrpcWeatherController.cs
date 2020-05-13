@@ -10,5 +10,7 @@ namespace NYC_Flights13_Backend.GrpcServices.Interfaces
         public IEnumerable<TemperatureAtOriginDTO> GetTemperatureAtOrigin(string origin);
 
         public ObservationsAtOriginDTO GetObservationsAtOrigin(string origin);
+
+        public IEnumerable<TemperatureAtOriginWithOriginDTO> GetTemperatureAtOrigins(List<string> origins);
     }
 }
