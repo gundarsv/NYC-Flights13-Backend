@@ -31,8 +31,8 @@ namespace NYC_Flights13_Backend.Controllers
             return Ok(result);
         }
 
-        [HttpGet, Route("temperatureAtOrigin/{origin}")]
-        public IActionResult GetTemperatureAtOrigin(string origin)
+        [HttpGet, Route("temperature")]
+        public IActionResult GetTemperatureAtOrigin([FromQuery] string origin)
         {
             var result = _grpcWeatherController.GetTemperatureAtOrigin(origin);
 
