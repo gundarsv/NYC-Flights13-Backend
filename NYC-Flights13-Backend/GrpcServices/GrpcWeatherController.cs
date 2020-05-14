@@ -41,6 +41,21 @@ namespace NYC_Flights13_Backend.GrpcServices
             return temperatureAtOrigins;
         }
 
+        public IEnumerable<TemperatureAtOriginWithOriginDTO> GetTemperatureAtOrigins(List<string> origins)
+        {
+            var allOrigins = new OriginsRequest();
+
+            var mappedOrigins = _mapper.Map<List<OriginRequest>>(origins);
+
+            allOrigins.Origins.AddRange(mappedOrigins);
+
+            var response = weathersClient.GetTemperatureAtOrigins(allOrigins);
+
+            var temperatureAtOrigins = _mapper.Map<List<TemperatureAtOriginWithOriginDTO>>(response.AllOriginTemperatures);
+
+            return temperatureAtOrigins;
+        }
+
         public IEnumerable<WeatherDTO> GetWeather()
         {
             var response = weathersClient.GetWeather(new Empty());

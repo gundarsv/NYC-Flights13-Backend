@@ -46,5 +46,15 @@ namespace NYC_Flights13_Backend.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet, Route("temperature/origins")]
+        public IActionResult GetTemperatureAtOrigins()
+        {
+            var origins = new List<string>() {"JFK", "EWR", "LGA"};
+
+            var result = _grpcWeatherController.GetTemperatureAtOrigins(origins);
+
+            return Ok(result);
+        }
     }
 }

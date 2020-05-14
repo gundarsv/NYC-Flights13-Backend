@@ -10,6 +10,7 @@ service Weathers {
 	rpc GetWeather (google.protobuf.Empty) returns (WeatherResponse);
 	rpc GetTemperatureAtOrigin (OriginRequest) returns (TemperatureResponse);
 	rpc GetWeatherObservationsAtOrigin(OriginRequest) returns (ObservationsResponse);
+	rpc GetTemperatureAtOrigins (OriginsRequest) returns (AllOriginTemperatureResponse);
 }
 
 message ObservationsResponse {
@@ -19,6 +20,19 @@ message ObservationsResponse {
 
 message OriginRequest {
     string origin = 1;
+}
+
+message OriginsRequest {
+    repeated OriginRequest origins = 1;
+}
+
+message AllOriginTemperature {
+    TemperatureAtOrigin temperatureAtOrigin = 1;
+    string origin = 2;
+}
+
+message AllOriginTemperatureResponse {
+    repeated AllOriginTemperature allOriginTemperatures = 1;
 }
 
 message TemperatureAtOrigin {
