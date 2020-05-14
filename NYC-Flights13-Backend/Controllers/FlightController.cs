@@ -31,15 +31,15 @@ namespace NYC_Flights13_Backend.Controllers
             return Ok(result);
         }
 
-        [HttpGet, Route("numberOfFlightsPerMonth/{month}")]
-        public IActionResult GetNumberOfFlightsPerMonth(int month)
+        [HttpGet, Route("month")]
+        public IActionResult GetNumberOfFlightsPerMonth([FromQuery] int month)
         {
            var result = _grpcFlightsController.GetNumberOfFlights(month);
 
             return Ok(result);
         }
 
-        [HttpGet, Route("numberOfFlightsPerMonths")]
+        [HttpGet, Route("months")]
         public IActionResult GetNumberOfFlightsInMonths()
         {
             var months = new List<int> { 1, 2, 3, 4, 5 , 6, 7, 8, 9, 10, 11, 12};
@@ -57,8 +57,8 @@ namespace NYC_Flights13_Backend.Controllers
             return Ok(result);
         }
 
-        [HttpGet, Route("top10Destinations/{origin}")]
-        public IActionResult GetTop10DestinationsForOrigin(string origin)
+        [HttpGet, Route("destinations")]
+        public IActionResult GetTop10DestinationsForOrigin([FromQuery ]string origin)
         {
             var result = _grpcFlightsController.GetTop10DestinationsForOrigin(origin);
 
