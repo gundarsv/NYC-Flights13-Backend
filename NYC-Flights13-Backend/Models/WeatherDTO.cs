@@ -19,6 +19,8 @@ namespace NYC_Flights13_Backend.Models
 
         public float Temperature { get; private set; }
 
+        public float TemperatureInCelsius { get; private set; }
+ 
         public float DewPoint { get; private set; }
 
         public float Humidity { get; private set; }
