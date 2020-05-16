@@ -17,6 +17,8 @@ namespace NYC_Flights13_Backend.Controllers
         private readonly ILogger<WeatherController> _logger;
         private readonly IGrpcWeatherController _grpcWeatherController;
 
+        private readonly List<string> _origins = new List<string>() { "JFK", "EWR", "LGA" };
+
         public WeatherController(ILogger<WeatherController> logger, IGrpcWeatherController grpcWeatherController)
         {
             _logger = logger;
@@ -47,12 +49,18 @@ namespace NYC_Flights13_Backend.Controllers
             return Ok(result);
         }
 
+        [HttpGet, Route("observations/origins")]
+        public IActionResult GetObservationsAtOrigins()
+        {
+            var result = _grpcWeatherController.GetObservationsAtOrigins(_origins);
+
+            return Ok(result);
+        }
+
         [HttpGet, Route("temperature/origins")]
         public IActionResult GetTemperatureAtOrigins()
         {
-            var origins = new List<string>() {"JFK", "EWR", "LGA"};
-
-            var result = _grpcWeatherController.GetTemperatureAtOrigins(origins);
+            var result = _grpcWeatherController.GetTemperatureAtOrigins(_origins);
 
             return Ok(result);
         }

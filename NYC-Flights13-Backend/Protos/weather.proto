@@ -9,13 +9,18 @@ package nycflights;
 service Weathers {
 	rpc GetWeather (google.protobuf.Empty) returns (WeatherResponse);
 	rpc GetTemperatureAtOrigin (OriginRequest) returns (TemperatureResponse);
-	rpc GetWeatherObservationsAtOrigin(OriginRequest) returns (ObservationsResponse);
+	rpc GetWeatherObservationsAtOrigin(OriginRequest) returns (ObservationResponse);
+	rpc GetWeatherObservationsAtOrigins(OriginsRequest) returns (ObservationsResponse);
 	rpc GetTemperatureAtOrigins (OriginsRequest) returns (AllOriginTemperatureResponse);
 }
 
-message ObservationsResponse {
+message ObservationResponse {
     int32 observationsAtOrigin = 1;
     string origin = 2;
+}
+
+message ObservationsResponse {
+    repeated ObservationResponse observations = 1;
 }
 
 message OriginRequest {
