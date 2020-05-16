@@ -64,5 +64,13 @@ namespace NYC_Flights13_Backend.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet, Route("temperature/mean")]
+        public IActionResult GetDailyMeanTemperatureAtOrigin([FromQuery] string origin)
+        {
+            var result = _grpcWeatherController.GetDailyMeanTemperatureAtOrigin(origin);
+
+            return Ok(result);
+        }
     }
 }
