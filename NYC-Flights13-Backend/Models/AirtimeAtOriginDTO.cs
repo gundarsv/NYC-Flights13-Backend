@@ -12,6 +12,7 @@ namespace NYC_Flights13_Backend.Models
 
         public string Origin { get; set; }
 
+
         public AirtimeAtOriginDTO()
         {
            

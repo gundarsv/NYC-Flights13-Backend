@@ -5,6 +5,7 @@ using AutoMapper;
 using System.Threading.Tasks;
 using GrpcFlights;
 using NYC_Flights13_Backend.Models;
+using GrpcWeather;
 
 namespace NYC_Flights13_Backend.Mappings
 {
@@ -43,6 +44,9 @@ namespace NYC_Flights13_Backend.Mappings
             CreateMap<AirtimeAtOrigin, AirtimeAtOriginDTO>()
                 .ForMember(x => x.AirTime, opt => opt.MapFrom(y => y.AirTime))
                 .ForMember(x => x.Origin, opt => opt.MapFrom(y => y.Origin));
+
+            CreateMap<string, AirtimeRequest>()
+                .ForMember(x => x.Origin, opt => opt.MapFrom(y => y));
         }
     }
 }
