@@ -11,6 +11,13 @@ namespace NYC_Flights13_Backend.Models
 
         public float DailyMeanTemperatureInCelsius { get; set; }
 
+        public string Origin { get; set; }
+
         public DateTime DateTime { get; set; }
+
+        public DailyMeanTemperatureAtOriginDTO()
+        {
+
+        }
     }
 }

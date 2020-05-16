@@ -50,6 +50,7 @@ message DailyMeanTemperature {
     int32 month = 2;
     int32 day = 3;
     float meanTemp = 4;
+    string origin = 5;
 }
 
 message TemperatureAtOrigin {
@@ -58,6 +59,7 @@ message TemperatureAtOrigin {
     int32 day=3;
     int32 hour=4;
     float temp=5;
+    string origin = 6;
 }
 
 message TemperatureResponse {
