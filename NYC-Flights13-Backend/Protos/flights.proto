@@ -12,6 +12,7 @@ service Flights {
 	rpc GetNumberOfFlightsInMonths (AllMonths) returns (FlightsInMonths);
 	rpc GetTop10DestinationsForOrigin (DestinationRequest) returns (DestinationResponse);
 	rpc GetAirtimeAtOrigin (AirtimeRequest) returns (AirtimeAtOrigin);
+    rpc GetAirtimeAtOrigins (AirtimeRequests) returns (AirtimeAtOrigins);
 }
 
 message DestinationRequest {
@@ -39,6 +40,14 @@ message AirtimeRequest {
 message AirtimeAtOrigin {
     float air_time=1;
     string origin=2;
+}
+
+message AirtimeRequests {
+    repeated AirtimeRequest allAirtimeRequests=1;
+}
+
+message AirtimeAtOrigins {
+    repeated AirtimeAtOrigin airtimeAtOrigins=1;
 }
 
 message Flight {

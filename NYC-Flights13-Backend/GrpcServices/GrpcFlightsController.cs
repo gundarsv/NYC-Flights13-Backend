@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using NYC_Flights13_Backend.Models;
+using GrpcWeather;
 
 namespace NYC_Flights13_Backend.GrpcServices
 {
@@ -58,9 +59,24 @@ namespace NYC_Flights13_Backend.GrpcServices
             return flightsPerMonth;
         }
 
+        public IEnumerable<AirtimeAtOriginDTO> GetAirtimeAtOrigins(List <string> origins)
+        {
+            var allOrigins = new AirtimeRequests();
+
+            var mappedOrigins = _mapper.Map<List<AirtimeRequest>>(origins);
+
+            allOrigins.AllAirtimeRequests.AddRange(mappedOrigins);
+
+            var response = flightsClient.GetAirtimeAtOrigins(allOrigins);
+
+            var airtimeAtOrigin = _mapper.Map<List<AirtimeAtOriginDTO>>(response.AirtimeAtOrigins_);
+
+            return airtimeAtOrigin;
+        }
+
         public AirtimeAtOriginDTO GetAirtimeAtOrigin(string origin)
         {
-            var response = flightsClient.GetAirtimeAtOrigin(new AirtimeRequest { Origin = origin });
+            var response = flightsClient.GetAirtimeAtOrigin(new AirtimeRequest { Origin = origin});
 
             var airtimeAtOrigin = _mapper.Map<AirtimeAtOriginDTO>(response);
 
