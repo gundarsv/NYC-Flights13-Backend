@@ -41,7 +41,8 @@ namespace NYC_Flights13_Backend.Mappings
                 .ForMember(x => x.Origin, opt => opt.MapFrom(y => y.Origin));
 
             CreateMap<AirtimeAtOrigin, AirtimeAtOriginDTO>()
-                .ForMember(x => x.AirTime, opt => opt.MapFrom(y => y.AirTime));
+                .ForMember(x => x.AirTime, opt => opt.MapFrom(y => y.AirTime))
+                .ForMember(x => x.Origin, opt => opt.MapFrom(y => y.Origin));
         }
     }
 }
