@@ -8,7 +8,9 @@ namespace NYC_Flights13_Backend.Models
 {
     public class AirtimeAtOriginDTO
     {
-        public int AirTime { get; set; }
+        public float AirTime { get; set; }
+
+        public string Origin { get; set; }
 
         public AirtimeAtOriginDTO()
         {
