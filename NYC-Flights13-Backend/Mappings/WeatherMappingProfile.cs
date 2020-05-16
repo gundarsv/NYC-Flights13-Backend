@@ -27,7 +27,8 @@ namespace NYC_Flights13_Backend.Mappings
                 .ForMember(x => x.Precipitation, opt => opt.MapFrom(y => y.Precip))
                 .ForMember(x => x.Pressure, opt => opt.MapFrom(y => y.Pressure))
                 .ForMember(x => x.Visiblity, opt => opt.MapFrom(y => y.Visib))
-                .ForMember(x => x.TimeHour, opt => opt.MapFrom(y => y.TimeHour));
+                .ForMember(x => x.TimeHour, opt => opt.MapFrom(y => y.TimeHour))
+                .ForMember(x => x.TemperatureInCelsius, opt => opt.MapFrom(y => (y.Temp - 32) * 5/9));
 
             CreateMap<TemperatureAtOrigin, TemperatureAtOriginDTO>()
                 .ForMember(x => x.TemperatureInFahrenheit, opt => opt.MapFrom(y => y.Temp))
