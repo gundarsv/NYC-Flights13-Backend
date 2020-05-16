@@ -37,7 +37,7 @@ message AirtimeRequest {
 }
 
 message AirtimeAtOrigin {
-    int32 air_time=1;
+    float air_time=1;
     string origin=2;
 }
 
