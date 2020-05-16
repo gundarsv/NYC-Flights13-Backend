@@ -16,5 +16,7 @@ namespace NYC_Flights13_Backend.GrpcServices.Interfaces
         public IEnumerable<ObservationsAtOriginDTO> GetObservationsAtOrigins(List<string> origins);
 
         public IEnumerable<DailyMeanTemperatureAtOriginDTO> GetDailyMeanTemperatureAtOrigin(string origin);
+
+        public IEnumerable<DailyMeanTemperatureAtOriginDTO> GetDailyMeanTemperatureAtOrigins(List<string> origins);
     }
 }
