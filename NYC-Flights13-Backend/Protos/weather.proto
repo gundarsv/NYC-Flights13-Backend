@@ -13,6 +13,7 @@ service Weathers {
 	rpc GetWeatherObservationsAtOrigins (OriginsRequest) returns (ObservationsResponse);
 	rpc GetTemperatureAtOrigins (OriginsRequest) returns (AllOriginTemperatureResponse);
 	rpc GetDailyMeanTemperatureAtOrigin (OriginRequest) returns (DailyMeanTemperatureResponse);
+	rpc GetDailyMeanTemperatureAtOrigins (OriginsRequest) returns (DailyMeanTemperatureResponse);
 }
 
 message ObservationResponse {

@@ -32,6 +32,21 @@ namespace NYC_Flights13_Backend.GrpcServices
             return dailyMeanTemperatureAtOrigin;
         }
 
+        public IEnumerable<DailyMeanTemperatureAtOriginDTO> GetDailyMeanTemperatureAtOrigins(List<string> origins)
+        {
+            var allOrigins = new OriginsRequest();
+
+            var mappedOrigins = _mapper.Map<List<OriginRequest>>(origins);
+
+            allOrigins.Origins.AddRange(mappedOrigins);
+
+            var response = weathersClient.GetDailyMeanTemperatureAtOrigins(allOrigins);
+
+            var dailyMeanTemperatureAtOrigin = _mapper.Map<List<DailyMeanTemperatureAtOriginDTO>>(response.DailyMeanTemperatures);
+
+            return dailyMeanTemperatureAtOrigin;
+        }
+
         public ObservationsAtOriginDTO GetObservationsAtOrigin(string origin)
         {
             var response = weathersClient.GetWeatherObservationsAtOrigin(new OriginRequest { Origin = origin });
