@@ -13,6 +13,8 @@ namespace NYC_Flights13_Backend.Models
 
         public DateTime DateTime { get; set; }
 
+        public string Origin { get; set; }
+
         public TemperatureAtOriginDTO()
         {
 
