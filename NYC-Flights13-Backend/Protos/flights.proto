@@ -1,0 +1,87 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcFlights";
+
+import "google/protobuf/empty.proto";
+
+package nycflights;
+
+service Flights {
+	rpc GetFlights (google.protobuf.Empty) returns (FlightResponse);
+	rpc GetNumberOfFlightsPerMonth (MonthNumber) returns (FlightsPerMonth);
+	rpc GetNumberOfFlightsInMonths (AllMonths) returns (FlightsInMonths);
+	rpc GetTop10DestinationsForOrigin (DestinationRequest) returns (DestinationResponse);
+	rpc GetAirtimeAtOrigin (AirtimeRequest) returns (AirtimeAtOrigin);
+    rpc GetAirtimeAtOrigins (AirtimeRequests) returns (AirtimeAtOrigins);
+}
+
+message DestinationRequest {
+    string origin = 1;
+}
+
+message DestinationResponse {
+    repeated FlightsPerDestination flightsPerDestination = 1;
+}
+
+message FlightsPerDestination {
+    int32 numberOfFlights = 1;
+    string destination = 2;
+    string origin = 3;
+}
+
+message FlightResponse {
+	repeated Flight flight = 1;
+}
+
+message AirtimeRequest {
+    string origin=1;
+}
+
+message AirtimeAtOrigin {
+    float air_time=1;
+    string origin=2;
+}
+
+message AirtimeRequests {
+    repeated AirtimeRequest allAirtimeRequests=1;
+}
+
+message AirtimeAtOrigins {
+    repeated AirtimeAtOrigin airtimeAtOrigins=1;
+}
+
+message Flight {
+    string origin = 1;
+    string dest = 2;
+    string carrier = 3;
+    string tailnum = 4;
+    int32 flight =5;
+    int32 year = 6;
+    int32 month = 7;
+    int32 day = 8;
+    int32 dep_time = 9;
+    int32 dep_delay = 10;
+    int32 arr_time = 11;
+    int32 arr_delay = 12;
+    int32 air_time = 13;
+    int32 distance = 14;
+    int32 hour = 15;
+    int32 minute = 16;
+}
+
+message MonthNumber {
+    int32 number = 1;
+}
+
+message AllMonths {
+    repeated MonthNumber monthNumbers = 1;
+}
+
+message FlightsPerMonth {
+    MonthNumber monthNumber = 1;
+    int32 flightsCount = 2;
+}
+
+message FlightsInMonths {
+    repeated FlightsPerMonth flightsPerMonth = 1;
+}

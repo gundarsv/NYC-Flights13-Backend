@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcWeather";
+
+import "google/protobuf/empty.proto";
+
+package nycflights;
+
+service Weathers {
+	rpc GetWeather (google.protobuf.Empty) returns (WeatherResponse);
+	rpc GetTemperatureAtOrigin (OriginRequest) returns (TemperatureResponse);
+	rpc GetWeatherObservationsAtOrigin (OriginRequest) returns (ObservationResponse);
+	rpc GetWeatherObservationsAtOrigins (OriginsRequest) returns (ObservationsResponse);
+	rpc GetTemperatureAtOrigins (OriginsRequest) returns (AllOriginTemperatureResponse);
+	rpc GetDailyMeanTemperatureAtOrigin (OriginRequest) returns (DailyMeanTemperatureResponse);
+	rpc GetDailyMeanTemperatureAtOrigins (OriginsRequest) returns (DailyMeanTemperatureResponse);
+}
+
+message ObservationResponse {
+    int32 observationsAtOrigin = 1;
+    string origin = 2;
+}
+
+message ObservationsResponse {
+    repeated ObservationResponse observations = 1;
+}
+
+message OriginRequest {
+    string origin = 1;
+}
+
+message OriginsRequest {
+    repeated OriginRequest origins = 1;
+}
+
+message AllOriginTemperature {
+    TemperatureAtOrigin temperatureAtOrigin = 1;
+    string origin = 2;
+}
+
+message AllOriginTemperatureResponse {
+    repeated AllOriginTemperature allOriginTemperatures = 1;
+}
+
+message DailyMeanTemperatureResponse {
+    repeated DailyMeanTemperature dailyMeanTemperatures = 1;
+}
+
+message DailyMeanTemperature {
+    int32 year = 1;
+    int32 month = 2;
+    int32 day = 3;
+    float meanTemp = 4;
+    string origin = 5;
+}
+
+message TemperatureAtOrigin {
+    int32 year=1;
+    int32 month=2;
+    int32 day=3;
+    int32 hour=4;
+    float temp=5;
+    string origin = 6;
+}
+
+message TemperatureResponse {
+    repeated TemperatureAtOrigin temperatureAtOrigins = 1;
+}
+
+message WeatherResponse {
+	repeated Weather weather = 1;
+}
+
+message Weather {
+    string origin = 1;
+    int32 year = 2;
+    int32 month = 3;
+    int32 day = 4;
+    int32 hour =5;
+    float temp = 6;
+    float dewp = 7;
+    float humid = 8;
+    int32 wind_dir = 9;
+    float wind_speed = 10;
+    float wind_gust = 11;
+    float precip = 12;
+    float pressure = 13;
+    float visib = 14;
+    string time_hour = 15;
+}
