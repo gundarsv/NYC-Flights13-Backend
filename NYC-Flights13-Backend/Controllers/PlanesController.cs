@@ -15,6 +15,7 @@ namespace NYC_Flights13_Backend.Controllers
     public class PlanesController : ControllerBase
     {
         private readonly ILogger<PlanesController> _logger;
+
         private readonly IGrpcPlanesController _grpcPlanesController;
 
         public PlanesController(ILogger<PlanesController> logger, IGrpcPlanesController grpcPlanesController)

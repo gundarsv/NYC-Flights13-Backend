@@ -12,7 +12,41 @@ service Flights {
 	rpc GetNumberOfFlightsInMonths (AllMonths) returns (FlightsInMonths);
 	rpc GetTop10DestinationsForOrigin (DestinationRequest) returns (DestinationResponse);
 	rpc GetAirtimeAtOrigin (AirtimeRequest) returns (AirtimeAtOrigin);
-    rpc GetAirtimeAtOrigins (AirtimeRequests) returns (AirtimeAtOrigins);
+	rpc GetAirtimeAtOrigins (AirtimeRequests) returns (AirtimeAtOrigins);
+	rpc GetNumberOfFlightsPerMonthInOrigin (MonthOriginRequest) returns (MonthOriginResponse);
+	rpc GetNumberOfFlightsPerMonthInOrigins (MonthOriginsRequest) returns (MonthsOriginsResponse);
+	rpc GetNumberOfFlightsInMonthsInOrigin (MonthsOriginRequest) returns (MonthsOriginsResponse);
+	rpc GetNumberOfFlightsInMonthsInOrigins (MonthsOriginsRequest) returns (MonthsOriginsResponse);
+}
+
+message MonthOriginRequest {
+    int32 month = 1;
+    string origin = 2;
+}
+
+message MonthOriginsRequest {
+    int32 month = 1;
+    repeated string origin = 2;
+}
+
+message MonthsOriginRequest {
+    repeated int32 month = 1;
+    string origin = 2;
+}
+
+message MonthsOriginsRequest {
+    repeated int32 month = 1;
+    repeated string origin = 2;
+}
+
+message MonthOriginResponse {
+    int32 flights = 1;
+    int32 month = 2;
+    string origin = 3;
+}
+
+message MonthsOriginsResponse {
+    repeated MonthOriginResponse monthsOrigins = 1;
 }
 
 message DestinationRequest {
