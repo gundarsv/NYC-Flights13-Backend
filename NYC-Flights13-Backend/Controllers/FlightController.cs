@@ -17,6 +17,10 @@ namespace NYC_Flights13_Backend.Controllers
 
         private readonly IGrpcFlightsController _grpcFlightsController;
 
+        private readonly List<int> _months = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+
+        private readonly List<string> _origins = new List<string>() { "JFK", "EWR", "LGA" };
+
         public FlightsController(ILogger<FlightsController> logger, IGrpcFlightsController grpcFlightsController)
         {
             _logger = logger;
@@ -42,9 +46,7 @@ namespace NYC_Flights13_Backend.Controllers
         [HttpGet, Route("months")]
         public IActionResult GetNumberOfFlightsInMonths()
         {
-            var months = new List<int> { 1, 2, 3, 4, 5 , 6, 7, 8, 9, 10, 11, 12};
-
-            var result = _grpcFlightsController.GetNumberOfFlightsInMonths(months);
+            var result = _grpcFlightsController.GetNumberOfFlightsInMonths(_months);
 
             return Ok(result);
         }
@@ -52,9 +54,7 @@ namespace NYC_Flights13_Backend.Controllers
         [HttpGet, Route("airtime/mean/origins")]
         public IActionResult GetAirtimeAtOrigins()
         {
-            var origins = new List<string>() { "JFK", "EWR", "LGA" };
-
-            var result = _grpcFlightsController.GetAirtimeAtOrigins(origins);
+            var result = _grpcFlightsController.GetAirtimeAtOrigins(_origins);
 
             return Ok(result);
         }
@@ -71,6 +71,38 @@ namespace NYC_Flights13_Backend.Controllers
         public IActionResult GetTop10DestinationsForOrigin([FromQuery ]string origin)
         {
             var result = _grpcFlightsController.GetTop10DestinationsForOrigin(origin);
+
+            return Ok(result);
+        }
+
+        [HttpGet, Route("month/{month}/origin/{origin}")]
+        public IActionResult GetNumberOfFlightsInMonthInOrigin(int month, string origin)
+        {
+            var result = _grpcFlightsController.GetNumberOfFlightsInMonthInOrigin(month, origin);
+
+            return Ok(result);
+        }
+
+        [HttpGet, Route("month/{month}/origin/origins")]
+        public IActionResult GetNumberOfFlightsInMonthInOrigins(int month)
+        {
+            var result = _grpcFlightsController.GetNumberOfFlightsInMonthInOrigins(month, _origins);
+
+            return Ok(result);
+        }
+
+        [HttpGet, Route("month/months/origin/{origin}")]
+        public IActionResult GetNumberOfFlightsInMontshInOrigin(string origin)
+        {
+            var result = _grpcFlightsController.GetNumberOfFlightsInMontshInOrigin(_months, origin);
+
+            return Ok(result);
+        }
+
+        [HttpGet, Route("month/months/origin/origins")]
+        public IActionResult GetNumberOfFlightsInMontshInOrigins()
+        {
+            var result = _grpcFlightsController.GetNumberOfFlightsInMontshInOrigins(_months, _origins);
 
             return Ok(result);
         }
