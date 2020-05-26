@@ -145,5 +145,14 @@ namespace NYC_Flights13_Backend.GrpcServices
 
             return flightsPerMonthInOrigin;
         }
+
+        public IEnumerable<FlightsManufacturerDTO> GetNumberOfFlightsForManufacturers()
+        {
+            var response = flightsClient.GetNumberOfFlightsForManufacturersWithMoreThan200Planes(new Empty());
+
+            var numberOfFlightsForManufactuer = _mapper.Map<List<FlightsManufacturerDTO>>(response.NumberOfFlightsManufacturer);
+
+            return numberOfFlightsForManufactuer;
+        }
     }
 }

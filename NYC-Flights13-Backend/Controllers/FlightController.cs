@@ -106,5 +106,13 @@ namespace NYC_Flights13_Backend.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet, Route("manufacturers")]
+        public IActionResult GetNumberOfFlightsForManufacturers()
+        {
+            var result = _grpcFlightsController.GetNumberOfFlightsForManufacturers();
+
+            return Ok(result);
+        }
     }
 }
