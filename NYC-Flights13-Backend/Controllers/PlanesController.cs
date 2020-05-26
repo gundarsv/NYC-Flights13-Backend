@@ -38,5 +38,13 @@ namespace NYC_Flights13_Backend.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet, Route("model")]
+        public IActionResult GetNumberOfPlanesForEachManufacturerModel([FromQuery] string manufacturer)
+       {
+            var result = _grpcPlanesController.GetNumberOfPlanesForEachManufacturerModel(manufacturer);
+
+            return Ok(result);
+       }
     }
 }

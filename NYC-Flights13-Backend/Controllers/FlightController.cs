@@ -74,5 +74,15 @@ namespace NYC_Flights13_Backend.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet, Route("delays/origins")]
+
+        public IActionResult GetDepartureArrivalDelaysForOrigin()
+        {
+            var origins = new List<string>() { "JFK", "EWR", "LGA" };
+            var result = _grpcFlightsController.GetDepartureArrivalAtOrigins(origins);
+
+            return Ok(result);
+        }
     }
 }

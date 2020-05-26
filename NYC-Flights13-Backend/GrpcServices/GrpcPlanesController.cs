@@ -40,5 +40,14 @@ namespace NYC_Flights13_Backend.GrpcServices
 
             return manufacturersWithMoreThan200Planes;
         }
+
+        public IEnumerable<NumberOfPlanesForEachManufacturerModelDTO> GetNumberOfPlanesForEachManufacturerModel(string manufacturer)
+        {
+            var response = planesClient.GetNumberOfPlanesForEachManufacturerModel(new Manufacturer { Manufacturer_ = manufacturer });
+
+            var numberOfPlanesForEachManufacturerModel = _mapper.Map<List<NumberOfPlanesForEachManufacturerModelDTO>>(response.NumberOfPlanesForModel);
+
+            return numberOfPlanesForEachManufacturerModel;
+        }
     }
 }

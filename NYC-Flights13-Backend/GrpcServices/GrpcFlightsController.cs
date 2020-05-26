@@ -91,5 +91,20 @@ namespace NYC_Flights13_Backend.GrpcServices
 
             return top10Destinations;
         }
+
+        public IEnumerable<DepartureArrivalDelayAtOriginDTO> GetDepartureArrivalAtOrigins(List<string> origins)
+        {
+            var allOrigins = new OriginsRequest();
+
+            var mappedOrigins = _mapper.Map<List<OriginRequest>>(origins);
+
+            allOrigins.Origins.AddRange(mappedOrigins);
+
+            var response = flightsClient.GetDepartureArrivalDelayAtOrigin(allOrigins);
+
+            var departureArrivalDelays = _mapper.Map<List<DepartureArrivalDelayAtOriginDTO>>(response.DepartureArrivalDelay);
+
+            return departureArrivalDelays;
+        }
     }
 }

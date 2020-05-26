@@ -18,5 +18,7 @@ namespace NYC_Flights13_Backend.GrpcServices.Interfaces
         public IEnumerable<AirtimeAtOriginDTO> GetAirtimeAtOrigins(List<string> origins);
 
         public AirtimeAtOriginDTO GetAirtimeAtOrigin(string origin);
+
+        public IEnumerable<DepartureArrivalDelayAtOriginDTO> GetDepartureArrivalAtOrigins(List<string> origins);
     }
 }
