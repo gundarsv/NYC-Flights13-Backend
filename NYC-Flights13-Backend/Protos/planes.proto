@@ -9,6 +9,7 @@ package nycflights;
 service Planes {
 	rpc GetPlanes (google.protobuf.Empty) returns (PlaneResponse);
 	rpc GetManufacturersWithMoreThan200Planes (google.protobuf.Empty) returns (ManufacturersResponse);
+	rpc GetNumberOfPlanesForEachManufacturerModel (Manufacturer) returns (NumberOfPlanesForModelResponse);
 }
 
 message PlaneResponse {
@@ -34,5 +35,19 @@ message ManufacturersResponse {
 message Manufacturer {
     int32 planes = 1;
     string manufacturer = 2;
+}
+
+message ModelNumber {
+  string number = 1;
+}
+
+message NumberOfPlanesForModel {
+  ModelNumber modelNumber = 1;
+  int32 modelCount = 2;
+  string manufacturer = 3;
+}
+
+message NumberOfPlanesForModelResponse {
+  repeated NumberOfPlanesForModel numberOfPlanesForModel = 1;
 }
 

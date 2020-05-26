@@ -26,6 +26,11 @@ namespace NYC_Flights13_Backend.Mappings
             CreateMap<Manufacturer, ManufacturerDTO>()
                 .ForMember(x => x.Planes, opt => opt.MapFrom(y => y.Planes))
                 .ForMember(x => x.Manufacturer, opt => opt.MapFrom(y => y.Manufacturer_));
+
+            CreateMap<NumberOfPlanesForModel, NumberOfPlanesForEachManufacturerModelDTO>()
+                .ForMember(x => x.Model, opt => opt.MapFrom(y => y.ModelNumber.Number))
+                .ForMember(x => x.NumberOfPlanes, opt => opt.MapFrom(y => y.ModelCount))
+                .ForMember(x => x.Manufacturer, opt => opt.MapFrom(y => y.Manufacturer));
         }
     }
 }
