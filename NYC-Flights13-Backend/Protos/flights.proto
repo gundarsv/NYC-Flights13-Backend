@@ -3,6 +3,7 @@
 option csharp_namespace = "GrpcFlights";
 
 import "google/protobuf/empty.proto";
+import "Protos/weather.proto";
 
 package nycflights;
 
@@ -18,6 +19,7 @@ service Flights {
 	rpc GetNumberOfFlightsInMonthsInOrigin (MonthsOriginRequest) returns (MonthsOriginsResponse);
 	rpc GetNumberOfFlightsInMonthsInOrigins (MonthsOriginsRequest) returns (MonthsOriginsResponse);
 	rpc GetNumberOfFlightsForManufacturersWithMoreThan200Planes (google.protobuf.Empty) returns (NumberOfFlightsForManufacturerResponse);
+	rpc GetDepartureArrivalDelayAtOrigin (OriginsRequest) returns (DepartureArrivalAtOrigin);
 }
 
 message NumberOfFlightsForManufacturerResponse {
@@ -92,6 +94,16 @@ message AirtimeRequests {
 
 message AirtimeAtOrigins {
     repeated AirtimeAtOrigin airtimeAtOrigins=1;
+}
+
+message DepartureArrivalAtOrigin {
+    repeated DepartureArrivalDelay departureArrivalDelay = 1;
+}
+
+message DepartureArrivalDelay {
+    float dep_delay = 1;
+    float arr_delay = 2;
+    string origin = 3;
 }
 
 message Flight {
