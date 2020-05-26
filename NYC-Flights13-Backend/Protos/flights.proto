@@ -106,16 +106,6 @@ message DepartureArrivalDelay {
     string origin = 3;
 }
 
-message DepartureArrivalAtOrigin {
-    repeated DepartureArrivalDelay departureArrivalDelay = 1;
-}
-
-message DepartureArrivalDelay {
-    float dep_delay = 1;
-    float arr_delay = 2;
-    string origin = 3;
-}
-
 message Flight {
     string origin = 1;
     string dest = 2;
