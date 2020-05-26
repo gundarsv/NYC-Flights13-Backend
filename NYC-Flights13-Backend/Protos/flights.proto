@@ -17,6 +17,16 @@ service Flights {
 	rpc GetNumberOfFlightsPerMonthInOrigins (MonthOriginsRequest) returns (MonthsOriginsResponse);
 	rpc GetNumberOfFlightsInMonthsInOrigin (MonthsOriginRequest) returns (MonthsOriginsResponse);
 	rpc GetNumberOfFlightsInMonthsInOrigins (MonthsOriginsRequest) returns (MonthsOriginsResponse);
+	rpc GetNumberOfFlightsForManufacturersWithMoreThan200Planes (google.protobuf.Empty) returns (NumberOfFlightsForManufacturerResponse);
+}
+
+message NumberOfFlightsForManufacturerResponse {
+  repeated NumberOfFlightsManufacturer numberOfFlightsManufacturer =1;
+}
+
+message NumberOfFlightsManufacturer {
+  int32 numberOfFlights = 1;
+  string manufacturer = 2;
 }
 
 message MonthOriginRequest {

@@ -32,7 +32,7 @@ namespace NYC_Flights13_Backend.GrpcServices
             return planes;
         }
 
-        public IEnumerable<ManufacturerDTO> GetManufacturesWithMoreThan200Planes()
+        public IEnumerable<ManufacturerDTO> GetManufacturersWithMoreThan200Planes()
         {
             var response = planesClient.GetManufacturersWithMoreThan200Planes(new Empty());
 
