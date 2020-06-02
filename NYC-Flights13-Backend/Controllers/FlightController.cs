@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NYC_Flights13_Backend.GrpcServices.Interfaces;
 using NYC_Flights13_Backend.Models;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NYC_Flights13_Backend.Controllers
 {
@@ -38,7 +37,7 @@ namespace NYC_Flights13_Backend.Controllers
         [HttpGet, Route("month")]
         public IActionResult GetNumberOfFlightsPerMonth([FromQuery] int month)
         {
-           var result = _grpcFlightsController.GetNumberOfFlights(month);
+            var result = _grpcFlightsController.GetNumberOfFlights(month);
 
             return Ok(result);
         }
@@ -68,7 +67,7 @@ namespace NYC_Flights13_Backend.Controllers
         }
 
         [HttpGet, Route("destinations")]
-        public IActionResult GetTop10DestinationsForOrigin([FromQuery ]string origin)
+        public IActionResult GetTop10DestinationsForOrigin([FromQuery] string origin)
         {
             var result = _grpcFlightsController.GetTop10DestinationsForOrigin(origin);
 
@@ -100,9 +99,14 @@ namespace NYC_Flights13_Backend.Controllers
         }
 
         [HttpGet, Route("month/months/origin/origins")]
-        public IActionResult GetNumberOfFlightsInMontshInOrigins()
+        public IActionResult GetNumberOfFlightsInMontshInOrigins([FromQuery] bool percentage = false)
         {
             var result = _grpcFlightsController.GetNumberOfFlightsInMontshInOrigins(_months, _origins);
+
+            if (percentage)
+            {
+                return Ok(GetPercentage(result));
+            }
 
             return Ok(result);
         }
@@ -116,13 +120,23 @@ namespace NYC_Flights13_Backend.Controllers
         }
 
         [HttpGet, Route("delays/origins")]
-
         public IActionResult GetDepartureArrivalDelaysForOrigin()
         {
-            var origins = new List<string>() { "JFK", "EWR", "LGA" };
-            var result = _grpcFlightsController.GetDepartureArrivalAtOrigins(origins);
+            var result = _grpcFlightsController.GetDepartureArrivalAtOrigins(_origins);
 
             return Ok(result);
+        }
+
+        private IList GetPercentage(IEnumerable<FlightsPerMonthOriginDTO> flightsPerMonthOriginDTOs)
+        {
+            return flightsPerMonthOriginDTOs
+                .GroupBy(x => x.Month)
+                .Join(
+                        flightsPerMonthOriginDTOs.GroupBy(y => new { y.Month, y.Origin }),
+                        x => x.Key,
+                        y => y.Key.Month,
+                        (a, b) => new { Month = a.Key, b.Key.Origin, Percentage = b.Sum(x => x.Flights) / (double)a.Sum(x => x.Flights) }
+                    ).ToList();
         }
     }
 }
