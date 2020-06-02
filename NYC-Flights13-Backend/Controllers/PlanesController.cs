@@ -15,6 +15,7 @@ namespace NYC_Flights13_Backend.Controllers
     public class PlanesController : ControllerBase
     {
         private readonly ILogger<PlanesController> _logger;
+
         private readonly IGrpcPlanesController _grpcPlanesController;
 
         public PlanesController(ILogger<PlanesController> logger, IGrpcPlanesController grpcPlanesController)
@@ -34,9 +35,17 @@ namespace NYC_Flights13_Backend.Controllers
         [HttpGet, Route("manufacturers")]
         public IActionResult GetManufacturersWithMoreThan200Planes()
         {
-            var result = _grpcPlanesController.GetManufacturesWithMoreThan200Planes();
+            var result = _grpcPlanesController.GetManufacturersWithMoreThan200Planes();
 
             return Ok(result);
         }
+
+        [HttpGet, Route("model")]
+        public IActionResult GetNumberOfPlanesForEachManufacturerModel([FromQuery] string manufacturer)
+       {
+            var result = _grpcPlanesController.GetNumberOfPlanesForEachManufacturerModel(manufacturer);
+
+            return Ok(result);
+       }
     }
 }

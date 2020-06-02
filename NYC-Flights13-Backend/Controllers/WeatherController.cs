@@ -15,6 +15,7 @@ namespace NYC_Flights13_Backend.Controllers
     public class WeatherController : ControllerBase
     {
         private readonly ILogger<WeatherController> _logger;
+
         private readonly IGrpcWeatherController _grpcWeatherController;
 
         private readonly List<string> _origins = new List<string>() { "JFK", "EWR", "LGA" };

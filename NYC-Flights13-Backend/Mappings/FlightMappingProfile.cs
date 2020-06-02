@@ -47,6 +47,20 @@ namespace NYC_Flights13_Backend.Mappings
 
             CreateMap<string, AirtimeRequest>()
                 .ForMember(x => x.Origin, opt => opt.MapFrom(y => y));
+
+            CreateMap<MonthOriginResponse, FlightsPerMonthOriginDTO>()
+                .ForMember(x => x.Flights, opt => opt.MapFrom(y => y.Flights))
+                .ForMember(x => x.Month, opt => opt.MapFrom(y => y.Month))
+                .ForMember(x => x.Origin, opt => opt.MapFrom(y => y.Origin));
+
+            CreateMap<NumberOfFlightsManufacturer, FlightsManufacturerDTO>()
+               .ForMember(x => x.NumberOfFlights, opt => opt.MapFrom(y => y.NumberOfFlights))
+               .ForMember(x => x.Manufacturer, opt => opt.MapFrom(y => y.Manufacturer));
+
+            CreateMap<DepartureArrivalDelay, DepartureArrivalDelayAtOriginDTO>()
+                .ForMember(x => x.ArrivalDelay, opt => opt.MapFrom(y => y.ArrDelay))
+                .ForMember(x => x.DepartureDelay, opt => opt.MapFrom(y => y.DepDelay))
+                .ForMember(x => x.Origin, opt => opt.MapFrom(y => y.Origin));
         }
     }
 }

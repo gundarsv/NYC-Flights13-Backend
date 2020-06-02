@@ -3,6 +3,7 @@
 option csharp_namespace = "GrpcFlights";
 
 import "google/protobuf/empty.proto";
+import "Protos/weather.proto";
 
 package nycflights;
 
@@ -12,7 +13,52 @@ service Flights {
 	rpc GetNumberOfFlightsInMonths (AllMonths) returns (FlightsInMonths);
 	rpc GetTop10DestinationsForOrigin (DestinationRequest) returns (DestinationResponse);
 	rpc GetAirtimeAtOrigin (AirtimeRequest) returns (AirtimeAtOrigin);
-    rpc GetAirtimeAtOrigins (AirtimeRequests) returns (AirtimeAtOrigins);
+	rpc GetAirtimeAtOrigins (AirtimeRequests) returns (AirtimeAtOrigins);
+	rpc GetNumberOfFlightsPerMonthInOrigin (MonthOriginRequest) returns (MonthOriginResponse);
+	rpc GetNumberOfFlightsPerMonthInOrigins (MonthOriginsRequest) returns (MonthsOriginsResponse);
+	rpc GetNumberOfFlightsInMonthsInOrigin (MonthsOriginRequest) returns (MonthsOriginsResponse);
+	rpc GetNumberOfFlightsInMonthsInOrigins (MonthsOriginsRequest) returns (MonthsOriginsResponse);
+	rpc GetNumberOfFlightsForManufacturersWithMoreThan200Planes (google.protobuf.Empty) returns (NumberOfFlightsForManufacturerResponse);
+	rpc GetDepartureArrivalDelayAtOrigin (OriginsRequest) returns (DepartureArrivalAtOrigin);
+}
+
+message NumberOfFlightsForManufacturerResponse {
+  repeated NumberOfFlightsManufacturer numberOfFlightsManufacturer =1;
+}
+
+message NumberOfFlightsManufacturer {
+  int32 numberOfFlights = 1;
+  string manufacturer = 2;
+}
+
+message MonthOriginRequest {
+    int32 month = 1;
+    string origin = 2;
+}
+
+message MonthOriginsRequest {
+    int32 month = 1;
+    repeated string origin = 2;
+}
+
+message MonthsOriginRequest {
+    repeated int32 month = 1;
+    string origin = 2;
+}
+
+message MonthsOriginsRequest {
+    repeated int32 month = 1;
+    repeated string origin = 2;
+}
+
+message MonthOriginResponse {
+    int32 flights = 1;
+    int32 month = 2;
+    string origin = 3;
+}
+
+message MonthsOriginsResponse {
+    repeated MonthOriginResponse monthsOrigins = 1;
 }
 
 message DestinationRequest {
@@ -48,6 +94,16 @@ message AirtimeRequests {
 
 message AirtimeAtOrigins {
     repeated AirtimeAtOrigin airtimeAtOrigins=1;
+}
+
+message DepartureArrivalAtOrigin {
+    repeated DepartureArrivalDelay departureArrivalDelay = 1;
+}
+
+message DepartureArrivalDelay {
+    float dep_delay = 1;
+    float arr_delay = 2;
+    string origin = 3;
 }
 
 message Flight {

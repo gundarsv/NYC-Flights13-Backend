@@ -91,5 +91,83 @@ namespace NYC_Flights13_Backend.GrpcServices
 
             return top10Destinations;
         }
+
+        public FlightsPerMonthOriginDTO GetNumberOfFlightsInMonthInOrigin(int monthNumber, string origin)
+        {
+            var response = flightsClient.GetNumberOfFlightsPerMonthInOrigin(new MonthOriginRequest { Month = monthNumber, Origin = origin });
+
+            var flightsPerMonthInOrigin = _mapper.Map<FlightsPerMonthOriginDTO>(response);
+
+            return flightsPerMonthInOrigin;
+        }
+
+        public IEnumerable<FlightsPerMonthOriginDTO> GetNumberOfFlightsInMonthInOrigins(int monthNumber, List<string> origins)
+        {
+            var monthOriginsRequest = new MonthOriginsRequest();
+
+            monthOriginsRequest.Month = monthNumber;
+
+            monthOriginsRequest.Origin.AddRange(origins);
+
+            var response = flightsClient.GetNumberOfFlightsPerMonthInOrigins(monthOriginsRequest);
+
+            var flightsPerMonthInOrigin = _mapper.Map<List<FlightsPerMonthOriginDTO>>(response.MonthsOrigins);
+
+            return flightsPerMonthInOrigin;
+        }
+
+        public IEnumerable<FlightsPerMonthOriginDTO> GetNumberOfFlightsInMontshInOrigins(List<int> monthNumbers, List<string> origins)
+        {
+            var monthsOriginsRequest = new MonthsOriginsRequest();
+
+            monthsOriginsRequest.Origin.AddRange(origins);
+
+            monthsOriginsRequest.Month.AddRange(monthNumbers);
+
+            var response = flightsClient.GetNumberOfFlightsInMonthsInOrigins(monthsOriginsRequest);
+
+            var flightsPerMonthInOrigin = _mapper.Map<List<FlightsPerMonthOriginDTO>>(response.MonthsOrigins);
+
+            return flightsPerMonthInOrigin;
+        }
+
+        public IEnumerable<FlightsPerMonthOriginDTO> GetNumberOfFlightsInMontshInOrigin(List<int> monthNumbers, string origin)
+        {
+            var monthsOriginRequest = new MonthsOriginRequest();
+
+            monthsOriginRequest.Month.AddRange(monthNumbers);
+
+            monthsOriginRequest.Origin = origin;
+
+            var response = flightsClient.GetNumberOfFlightsInMonthsInOrigin(monthsOriginRequest);
+
+            var flightsPerMonthInOrigin = _mapper.Map<List<FlightsPerMonthOriginDTO>>(response.MonthsOrigins);
+
+            return flightsPerMonthInOrigin;
+        }
+
+        public IEnumerable<FlightsManufacturerDTO> GetNumberOfFlightsForManufacturers()
+        {
+            var response = flightsClient.GetNumberOfFlightsForManufacturersWithMoreThan200Planes(new Empty());
+
+            var numberOfFlightsForManufactuer = _mapper.Map<List<FlightsManufacturerDTO>>(response.NumberOfFlightsManufacturer);
+
+            return numberOfFlightsForManufactuer;
+        }
+
+        public IEnumerable<DepartureArrivalDelayAtOriginDTO> GetDepartureArrivalAtOrigins(List<string> origins)
+        {
+            var allOrigins = new OriginsRequest();
+
+            var mappedOrigins = _mapper.Map<List<OriginRequest>>(origins);
+
+            allOrigins.Origins.AddRange(mappedOrigins);
+
+            var response = flightsClient.GetDepartureArrivalDelayAtOrigin(allOrigins);
+
+            var departureArrivalDelays = _mapper.Map<List<DepartureArrivalDelayAtOriginDTO>>(response.DepartureArrivalDelay);
+
+            return departureArrivalDelays;
+        }
     }
 }
